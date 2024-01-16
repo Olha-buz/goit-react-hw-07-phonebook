@@ -1,9 +1,15 @@
 
 import css from './ContactList.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectContacts, selectFilter, selectVisibleContacts } from 'store/selectors';
+import { selectContacts, selectFilter } from 'store/selectors';
 import PropTypes from 'prop-types';
 import { deleteContacts } from 'store/operations';
+
+const getVisibleContacts = (contacts, filter) => {
+    return contacts.filter(contact =>
+        contact.name.toLowerCase().includes(filter.toLowerCase()));
+};
+
 
 
 export const ContactList = () => {
@@ -11,13 +17,11 @@ export const ContactList = () => {
     const filter = useSelector(selectFilter);
     const dispatch = useDispatch();
     
-    const visibleContacts = selectVisibleContacts(contacts, filter);
+    // const visibleContacts = selectVisibleContacts(contacts, filter);
     
-    // console.log(contacts);
+    console.log(contacts);
     
-    // const filteredContacts = contacts.filter(contact =>
-    //     contact.name.toLowerCase().includes(filter.toLowerCase())
-    // );
+    const visibleContacts = getVisibleContacts(contacts, filter);
  
     // console.log(filteredContacts);
     // console.log(filter);
