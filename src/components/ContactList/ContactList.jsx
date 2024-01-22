@@ -25,25 +25,25 @@ export const ContactList = () => {
     
     // const visibleContacts = selectVisibleContacts(contacts, filter);
     
-    console.log(contacts);
-    
     const visibleContacts = getVisibleContacts(contacts, filter);
  
     // console.log(filteredContacts);
     // console.log(filter);
 
-    const handleDelete = (contact) => dispatch(deleteContacts(contact.id));
+    const handleDelete = (contact) => {
+        dispatch(deleteContacts(contact.id));
+    }
     return (
         <ul className={css.contacts}>
             {visibleContacts.map(contact => {
                 return (
                     <li className={css.itemcontact} key={contact.id} >
-                        <p className={css.pItem}>{contact.name}: {contact.number}</p>
+                        <p className={css.pItem}>{contact.name}: {contact.phone}</p>
                         <button
                             className={css.buttonremove}
                             type="button"
                             id={contact.name}
-                            onClick={handleDelete}>
+                            onClick={() => handleDelete(contact)}>
                             Delete
                         </button>
                     </li>

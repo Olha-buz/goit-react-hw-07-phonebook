@@ -8,7 +8,7 @@ import { useState } from 'react';
 
 export const ContactForm = () => {
     const [name, setName] = useState('');
-    const [number, setNumber] = useState('');
+    const [phone, setPhone] = useState('');
 
     const dispatch = useDispatch();
     const contacts = useSelector(selectContacts);
@@ -19,23 +19,18 @@ export const ContactForm = () => {
             Notiflix.Notify.info(`${name} is already in contacts`);
             return;
         } else {
-            dispatch(addContacts(name, number));
+            dispatch(addContacts({name, phone}));
         }
         setName('');
-        setNumber('');
+        setPhone('');
     };
 
     const handleChange = evt => {
         const { name, value } = evt.target;
-        switch (name) {
-            case 'name':
-                setName(value);
-                break;
-            case 'number':
-                setNumber(value);
-                break;
-            default:
-                return;
+        if (name === 'name') {
+            setName(value)
+        } else if (name === 'phone') {
+            setPhone(value)
         }
     };
 
@@ -61,8 +56,8 @@ export const ContactForm = () => {
                 <input
                     className={css.inputform}
                     type="tel"
-                    name="number"
-                    value={number}
+                    name="phone"
+                    value={phone}
                     pattern="[0-9]{3}-[0-9]{2}-[0-9]{2}"
                     title="The phone number in the form 000-00-00."
                     required
